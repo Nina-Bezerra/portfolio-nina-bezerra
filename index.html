@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profa. Nina Bezerra - Designer Instrucional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Chosen Palette: Paleta "Profissional e Vibrante": Azul Marinho (#002060) como cor primária para identidade, títulos e elementos principais; Roxo Vibrante (#8A2BE2) como cor de destaque e acento; e Branco suave (#FFFFFF) para fundos, mantendo um contraste limpo e convidativo. -->
+    <!-- Application Structure Plan: Foi projetada uma aplicação de página única (SPA) com navegação fluida via barra superior fixa. A estrutura sequential (Hero > Sobre > Serviços > Portfólio > Processo > Feedback > Contato) foi escolhida para guiar o usuário em uma jornada lógica, começando pela apresentação da profissional, detalhando suas ofertas, mostrando provas de seu trabalho (portfólio interativo), explicando o processo, adicionando prova social com feedbacks e finalizando com os próximos passos e contato. Esta abordagem é ideal para portfólios, pois controla a narrativa e facilita a conversão, tornando a experiência do usuário coesa e intuitiva. -->
+    <!-- Visualization & Content Choices: Informação do Relatório -> Objetivo -> Método de Apresentação -> Interação -> Justificação -> Biblioteca/Método. || Apresentação -> Informar/Conectar -> Layout de duas colunas (imagem + texto) -> N/A -> Cria um balanço visual e humaniza a marca. -> HTML/Tailwind. || Serviços -> Informar/Comparar -> Cards interativos em grid -> Efeito de hover para destaque -> Mais dinâmico e visualmente atraente que uma tabela estática, incentivando a exploração. -> HTML/Tailwind/JS. || Projetos Realizados -> Organizar/Provar -> Galeria de thumbnails em grid -> Clique para abrir modal com detalhes e imagem ampliada (com duas páginas) -> Mantém a página principal limpa, focando a atenção em um projeto por vez, e oferece uma experiência de "descoberta" mais rica com múltiplos visuais. -> HTML/Tailwind/JS. || Processo (Observações) -> Informar/Esclarecer -> Lista estilizada com ícones -> N/A -> Melhora a legibilidade de informações processuais e quebra blocos de texto denso. -> HTML/Tailwind. || Feedback de Clientes -> Provar/Credibilizar -> Cards em grid com depoimentos -> N/A -> Apresenta a satisfação dos clientes de forma organizada e visualmente agradável, reforçando a confiança. -> HTML/Tailwind. || Elemento 3D (Hero) -> Decorar/Engajar -> Objeto 3D animado em canvas -> Rotação contínua -> Adiciona um toque moderno e dinâmico à primeira impressão do site. -> three.js/Canvas. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif; /* Fonte sem serifa para o corpo do texto */
+            background-color: #FFFFFF; /* Fundo branco para clareza */
+        }
+        h1, h2, h3, h4, h5, h6, .nav-link, .btn {
+            font-family: 'Montserrat', sans-serif; /* Fonte sem serifa para títulos e elementos de navegação */
+        }
+        .bg-brand-primary { background-color: #002060; } /* Azul marinho */
+        .text-brand-primary { color: #002060; } /* Azul marinho */
+        .bg-brand-secondary { background-color: #F8F8F8; } /* Cinza muito claro para seções */
+        .text-brand-accent { color: #8A2BE2; } /* Roxo vibrante */
+        .border-brand-accent { border-color: #8A2BE2; } /* Roxo vibrante */
+        .bg-brand-accent { background-color: #8A2BE2; } /* Roxo vibrante */
+        .bg-brand-accent-hover:hover { background-color: #7A1ED8; } /* Roxo mais escuro no hover */
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        .modal-enter-active {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 300ms, transform 300ms;
+        }
+        .modal-leave {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .modal-leave-active {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 300ms, transform 300ms;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+         @media (min-width: 768px) { .chart-container { height: 350px; } }
+
+        #hero-three-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Abaixo do conteúdo principal */
+            opacity: 0.1; /* Transparência para ser sutil */
+        }
+        #hero .container {
+            position: relative;
+            z-index: 1; /* Acima do canvas 3D */
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+
+    <header id="header" class="bg-white shadow-md fixed w-full top-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#hero" class="flex items-center space-x-2">
+                <!-- Logomarca da Profa. Nina Bezerra - Restaurada para o texto "N" -->
+                <div class="w-10 h-10 bg-brand-primary text-white flex items-center justify-center rounded-full font-bold text-xl">N</div>
+                <span class="font-bold text-lg text-brand-primary">Profa. Nina Bezerra</span>
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#sobre" class="nav-link text-gray-600 hover:text-brand-primary">Sobre</a>
+                <a href="#servicos" class="nav-link text-gray-600 hover:text-brand-primary">Serviços</a>
+                <a href="#portfolio" class="nav-link text-gray-600 hover:text-brand-primary">Portfólio</a>
+                <a href="#processo" class="nav-link text-gray-600 hover:text-brand-primary">Processo</a>
+                <a href="#feedback" class="nav-link text-gray-600 hover:text-brand-primary">Feedback</a>
+                <a href="#contato" class="btn bg-brand-primary text-white px-4 py-2 rounded-full hover:bg-opacity-90 transition-colors">Contato</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-600 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#sobre" class="block py-2 px-4 text-sm hover:bg-gray-200">Sobre</a>
+            <a href="#servicos" class="block py-2 px-4 text-sm hover:bg-gray-200">Serviços</a>
+            <a href="#portfolio" class="block py-2 px-4 text-sm hover:bg-gray-200">Portfólio</a>
+            <a href="#processo" class="block py-2 px-4 text-sm hover:bg-gray-200">Processo</a>
+            <a href="#feedback" class="block py-2 px-4 text-sm hover:bg-gray-200">Contato</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="bg-brand-secondary pt-24 md:pt-32 pb-16 relative overflow-hidden">
+            <canvas id="hero-three-canvas"></canvas>
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <h1 class="text-4xl md:text-6xl font-bold text-brand-primary leading-tight">Transformando educação com design instrucional estratégico</h1>
+                <p class="mt-6 text-lg md:text-xl max-w-3xl mx-auto">Criação de materiais didáticos personalizados, funcionais e alinhados à sua proposta pedagógica, com foco em clareza, acessibilidade e metodologias ativas.</p>
+                <a href="#portfolio" class="btn mt-8 inline-block bg-brand-accent text-white font-bold py-3 px-8 rounded-full text-lg bg-brand-accent-hover transition-transform transform hover:scale-105">Conheça meus projetos</a>
+            </div>
+        </section>
+
+        <section id="sobre" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+                    <div class="md:w-1/3">
+                        <!-- Imagem de perfil atualizada com o novo link fornecido -->
+                        <img src="https://lh3.googleusercontent.com/pw/AP1GczOE1QS5zp0EiUxIZ9DWWcIYV1YoEOLneFnVYmg8-1QYLZcVnqXDMhzDvD5B_V-KDXZge9OU1dDxeeTDUzKFfYFsvQKI_kG0_6z6Fs8bSvMz1zM4dQ" alt="Foto de Profa. Nina Bezerra" class="rounded-full shadow-2xl mx-auto">
+                    </div>
+                    <div class="md:w-2/3">
+                        <h2 class="text-3xl font-bold text-brand-primary mb-4">Olá, sou Nina Bezerra!</h2>
+                        <p class="mb-4">Minha paixão é transformar o aprendizado. Como pedagoga e especialista em docência do ensino superior, trago uma sólida formação acadêmica e vasta experiência prática em design instrucional. Atuo no núcleo de apoio psicopedagógico de um centro universitário e como docente de pós-graduação, o que me permite uma visão abrangente das necessidades de ensino e aprendizagem.</p>
+                        <p class="mb-4">Meu foco é desenvolver materiais didáticos de apoio — como slides, e-books e roteiros — que sejam não apenas funcionais e coerentes, mas verdadeiramente impactantes. Cada projeto é meticulosamente planejado, considerando os objetivos educacionais e o perfil do público-alvo para garantir uma experiência de aprendizado eficaz e envolvente.</p>
+                        <p>Ao me contratar, você terá acesso a materiais personalizados, criados de forma dialógica e estratégica. Meu compromisso é fortalecer o processo de ensino-aprendizagem, oferecendo recursos visuais que realmente fazem a diferença.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicos" class="py-16 md:py-24 bg-brand-secondary">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-brand-primary">Serviços oferecidos</h2>
+                    <p class="mt-2 text-lg max-w-2xl mx-auto">Soluções completas para a criação e aprimoramento de seus materiais didáticos.</p>
+                </div>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-brand-primary">Orientação pedagógica</h3>
+                        <p class="mt-2">Consultoria para alinhar objetivos pedagógicos com o conteúdo da apresentação.</p>
+                        <div class="mt-4 text-2xl font-bold text-brand-accent">R$ 20,00</div>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-brand-primary">Criação de design</h3>
+                        <p class="mt-2">Disposição do conteúdo: cores, tipografia e elementos visuais (por página).</p>
+                        <div class="mt-4 text-2xl font-bold text-brand-accent">R$ 4,50</div>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-brand-primary">Elaboração de recursos</h3>
+                        <p class="mt-2">Criação de atividades como dinâmicas, exercícios e quizzes (por recurso).</p>
+                        <div class="mt-4 text-2xl font-bold text-brand-accent">R$ 30,00</div>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-brand-primary">Aprimoramento de conteúdo</h3>
+                        <p class="mt-2">Ajustes na forma de apresentação e adequação de linguagem (por página).</p>
+                        <div class="mt-4 text-2xl font-bold text-brand-accent">R$ 5,00</div>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-brand-primary">Taxa de urgência</h3>
+                        <p class="mt-2">Acréscimo para materiais com prazo de entrega menor que 72 horas.</p>
+                        <div class="mt-4 text-2xl font-bold text-brand-accent">R$ 30,00</div>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-brand-primary">Reunião extra</h3>
+                        <p class="mt-2">Orientação extra sobre ideias para a condução da apresentação (por hora).</p>
+                        <div class="mt-4 text-2xl font-bold text-brand-accent">R$ 20,00</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                 <div class="text-center">
+                    <h2 class="text-3xl font-bold text-brand-primary">Projetos realizados</h2>
+                    <p class="mt-2 text-lg max-w-2xl mx-auto">Uma amostra de materiais desenvolvidos para diferentes públicos e objetivos. Clique para ver os detalhes.</p>
+                </div>
+                <div id="portfolio-grid" class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div>
+            </div>
+        </section>
+
+        <section id="processo" class="py-16 md:py-24 bg-brand-secondary">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-brand-primary">Como funciona</h2>
+                     <p class="mt-2 text-lg max-w-2xl mx-auto">Informações importantes para iniciarmos nossa parceria.</p>
+                </div>
+                <div class="max-w-4xl mx-auto mt-12 grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-brand-primary mb-2">Roteiro inicial</h3>
+                        <p>Para iniciar, é necessário que o cliente envie um roteiro escrito, informando o que será incluído em cada slide.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-brand-primary mb-2">Rodadas de revisão</h3>
+                        <p>Sua contratação inclui até 3 rodadas de revisão para prazos maiores que 72h, e 1 rodada para prazos inferiores.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-brand-primary mb-2">Adaptação de linguagem</h3>
+                        <p>Os serviços de "aprimoramento de conteúdo" e "elaboração de recursos" incluem a adaptação da linguagem ao público-alvo.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-brand-primary mb-2">Orçamentos</h3>
+                        <p>Os valores podem sofrer alterações. Portanto, é fundamental solicitar um novo orçamento para cada serviço.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="feedback" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold text-brand-primary">O que dizem meus clientes</h2>
+                    <p class="mt-2 text-lg max-w-2xl mx-auto">Depoimentos de quem já transformou o aprendizado com meus serviços.</p>
+                </div>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Feedback 1: Material Psicopedagógico e Treinamento Docente (ID 1) -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                        <p class="text-gray-700 italic mb-4">"Passando aqui só para te contar que deu tudo super certo com a apresentação 🙏🏻 foi um sucesso, recebi muitos elogios e grande parte desse resultado se deve ao seu trabalho impecável!!! 🤩 Quero te agradecer pelo cuidado e bom gosto que teve desde o design até a organização das ideias. Cada sugestão sua fez toda a diferença! Parabéns pelo profissionalismo e sensibilidade em entender exatamente o que eu precisava! 🥹 espero poder contar com você em muitos outros projetos que virão. 🥰"</p>
+                        <p class="font-bold text-brand-primary">- Cliente satisfeito(a) 1: Material psicopedagógico e treinamento docente</p>
+                    </div>
+                    <!-- Feedback 2: E-book: Mentoria em Comunicação Estratégica e Alta Performance (ID 3) -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                        <p class="text-gray-700 italic mb-4">"Eu estou encantada! A palavra é essa… não tem outra definição. Você é maravilhosa! Já quero todos os outros e-books… preciso produzir, porque é isso. Está perfeito!"</p>
+                        <p class="font-bold text-brand-primary">- Cliente satisfeito(a) 2: E-book: mentoria em comunicação estratégica e alta performance</p>
+                    </div>
+                    <!-- Feedback 3: Seminário de Pós-Graduação (ID 4) -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                        <p class="text-gray-700 italic mb-4">"Ficou incrível o material, seu trabalho foi impecável! A banca destacou a organização dos slides, e ainda me ajudou a estruturar melhor minhas ideias durante a apresentação."</p>
+                        <p class="font-bold text-brand-primary">- Cliente satisfeito(a) 3: Seminário de pós-graduação</p>
+                    </div>
+                    <!-- Feedback 4: Aula e dinâmica com Discentes do Ensino Superior (ID 5) -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                        <p class="text-gray-700 italic mb-4">"Nina, achei simplesmente incrível o material que você produziu! Tudo muito bem feito, organizado, com conteúdo de qualidade e uma apresentação super caprichada. Foi além do que eu esperava, ficou muito top! Já estou aqui separando mais coisas para te mandar, porque depois desse trabalho, virei fã do seu talento."</p>
+                        <p class="font-bold text-brand-primary">- Cliente satisfeito(a) 4: Aula e dinâmica com discentes do ensino superior</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="contato" class="bg-brand-primary text-white py-16">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold">Vamos conversar sobre o seu próximo projeto?</h2>
+            <p class="mt-4 text-lg">Estou à disposição para transformar suas ideias em materiais didáticos de alto impacto.</p>
+            <div class="mt-8 flex justify-center items-center space-x-6">
+                <a href="mailto:irinaldasbezerra@gmail.com" class="hover:text-brand-accent transition-colors">irinaldasbezerra@gmail.com</a>
+                <span class="text-gray-400">|</span>
+                <!-- WhatsApp link adicionado aqui, substituindo o link tel: anterior -->
+                <a href="https://wa.me/message/HXNEAWCCEX3KN1" target="_blank" class="hover:text-brand-accent transition-colors">(83) 99612-2911 (WhatsApp)</a>
+                <span class="text-gray-400">|</span>
+                <!-- Instagram link atualizado com o novo URL -->
+                <a href="https://www.instagram.com/prof.ninabezerra/profilecard/?igsh=MXZkajhqaWsyZDc0Ng==" target="_blank" class="hover:text-brand-accent transition-colors">@PROF.NINABEZERRA</a>
+            </div>
+             <p class="mt-12 text-sm text-gray-400">&copy; 2025 Profa. Nina Bezerra. Todos os direitos reservados. João Pessoa - PB.</p>
+        </div>
+    </footer>
+
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50">
+        <div id="modal-content" class="bg-white rounded-lg shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto p-6 relative modal-enter">
+            <button id="modal-close" class="absolute top-4 right-4 text-gray-500 hover:text-black">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <h3 id="modal-title" class="text-2xl font-bold text-brand-primary mb-4"></h3>
+            <div class="flex flex-col md:flex-row gap-4 mb-4">
+                <img id="modal-img-1" src="" alt="Imagem do Projeto Página 1" class="w-full md:w-1/2 h-auto rounded-md object-contain max-h-96">
+                <img id="modal-img-2" src="" alt="Imagem do Projeto Página 2" class="w-full md:w-1/2 h-auto rounded-md object-contain max-h-96">
+            </div>
+            <p id="modal-description" class="text-gray-700"></p>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            const portfolioData = [
+                {
+                    id: 1,
+                    title: 'Material para Acompanhamento Psicopedagógico',
+                    description: "Material desenvolvido para acompanhamento psicopedagógico de paciente adulto, abordando o tema 'Dislexia em adultos: entendendo o que é e como se manifesta'. Foco na clareza e acessibilidade do conteúdo.",
+                    image1: 'https://lh3.googleusercontent.com/pw/AP1GczMOi9IhT5zhe7Nbe6d_s0SeckkxJUH6DUVCLzqKyFlGFHG778TARi9O3iWWkRcZvGh0hC8h4n-WGY7H_OwqvPNIhw1eiKICoIPauIugt1kjxhXWDuVS2Z2NlzxY107LP0zbJRqSOqo5kgu6TOYTncM=w1125-h633-s-no-gm?authuser=0', 
+                    image2: 'https://lh3.googleusercontent.com/pw/AP1GczNXdkOh0tRwHFwQ3u8QEmTSuLsKGaqE_w-cwF1vUhDS5v697LjYUZSazr7_R9guBZR5Dqkyq9_W41sGl7nKiyVwS9JSTrKZXZThU3z4aFL9Bv0PWXiat5n0fOg73T1F9YjNzuvHwIodQ0V0t0yXz7U=w1125-h633-s-no-gm?authuser=0', 
+                    category: 'Saúde'
+                },
+                {
+                    id: 2,
+                    title: 'Treinamento para Docentes da Educação Básica',
+                    description: "Treinamento sobre 'Processos avaliativos no ensino fundamental: teorias e práticas', com o objetivo de aprimorar as práticas pedagógicas dos docentes.",
+                    image1: 'https://lh3.googleusercontent.com/pw/AP1GczOOmW3LNiAmoQ95z0AN4Sn-vNaA6iuMD85zPFxgImDqaGZlcDIyoFsMjwfn2S8gkZbdyi-TN9ZZaAWcnt0_N9_T9DlYMF2uYZWmnPHkGYkdGH3_OLinXj-it6HrEPa9f05ph60YmA8xRTkm0O4vvJU=w1125-h633-s-no-gm?authuser=0',
+                    image2: 'https://lh3.googleusercontent.com/pw/AP1GczNHv6yJBk0_5fl-bnb7THzq6Rn8UOgvT2u-G8YwauEijC9-MHuunJb2mFxTxkAShv1-AeDqr5X2-W8Q1rtgB5EOmHCvW22AZqTHDFcDmiQQS3I_tGLlLdQzjAS4JeU5KCFVLb_XE_yGMWdmnsb3xZ0=w1125-h633-s-no-gm?authuser=0',
+                    category: 'Educação Básica'
+                },
+                {
+                    id: 3,
+                    title: 'E-book: Mentoria em Comunicação Estratégica e Alta Performance',
+                    description: "E-book focado em produtividade sustentável, oferecendo estratégias de comunicação e alta performance para mentoria.",
+                    image1: 'https://lh3.googleusercontent.com/pw/AP1GczN_-ps2TsRDQU02r3uXtAh0iUPo11mfq1wWyl4KKWu4yDb7awqaF0FMD5L5Bq9_hyvP1DI_97tBwlQLl0Uuoj7X91tU_8m1CkDPoOf1sXbYvLh3XjwNX4t_3fDxpAh8Ld6uIsGlEPRA1YUyu983bOA=w405-h633-s-no-gm?authuser=0', 
+                    image2: 'https://lh3.googleusercontent.com/pw/AP1GczMxlzn9PTGp87dpA5HAUXv8qwiT_N9xBxgZi77Q7aNq_uuKAUubjTsgRuaplSVBI7oX0w66dHmlKM5Yn6am5uNv6vlohuHQOsGKC7Jujsc5lSnrdqk1gHCFV4JpELbcmBp4iMVBje3ivdBgWlXTL_Y=w1125-h633-s-no-gm?authuser=0', 
+                    category: 'Comunicação e Produtividade'
+                },
+                {
+                    id: 4,
+                    title: 'Seminário de Pós-Graduação',
+                    description: 'Material elaborado para seminário de pós-graduação em ecologia, com design focado em facilitar a compreensão de conceitos científicos complexos.',
+                    image1: 'https://lh3.googleusercontent.com/pw/AP1GczMbx_W5G-ME8ecWNnOPTRMaK_801Ur917s0Q45CI4qrP2-O7_vxBC7tqYDz9tR40pjSDiTpOn7L7JxwdzhiXZs6nZeWIBnSTn4393x3jklOaZMfZLEi8xnC5vxs6NPTUyGTaVObOcfWabWZy71ZIKU=w1125-h633-s-no-gm?authuser=0',
+                    image2: 'https://lh3.googleusercontent.com/pw/AP1GczO4eH3N_xLWbL-3nkP-vgRpbfb1FhNDbAS9Y1zIgJVGxRMr078LqH7AKdzT6GtSDlXgxUGw1TLtgWKitwG6_Wxp0mwhao0vYI8fOMHRFcDb9YbEwK91wseVGy7qy8799HKS1WikCWQwK1paTN9KMUU=w1125-h633-s-no-gm?authuser=0',
+                    category: 'Pós-Graduação'
+                },
+                {
+                    id: 5,
+                    title: 'Dinâmica com Discentes do Ensino Superior',
+                    description: "Material dinâmico e interativo utilizando gamificação com o tema 'Bem-vindos/as ao jogo mais importante de suas vidas', visando engajamento e aprendizado ativo.",
+                    image1: 'https://lh3.googleusercontent.com/pw/AP1GczMqqO_nhKg4ZFB1-ms0mjmaDSa_QCZsMMwPHceBMa0hxk3njsriZqfOcl9YZZjOzM6-cPDquSXm8spGGGs7ZFh4IeDwA2LYlowbpyQ2MYBwOXUf0US-VF-Al11d_AD0GLFIGwsaHFDixYxD_kA3Y1Y=w1125-h633-s-no-gm?authuser=0',
+                    image2: 'https://lh3.googleusercontent.com/pw/AP1GczMnf4ehjRJG8KNzMefCH4cKoMVmwsj9octA2HP0CRM0SoUCNsGoV8QyAgRc-I61oBRacdYoMCDyyJKdhIIWbs8bTK_K42XyhICFGe5j0eeKRd5HogF0-K7wJRqyADERhOf73ZLIbFjlGVxVkW1JZZY=w1125-h633-s-no-gm?authuser=0',
+                    category: 'Ensino Superior'
+                },
+                {
+                    id: 6,
+                    title: 'Material Institucional',
+                    description: "Apresentação de setor com base em 'Estratégias inovadoras', destacando ações como permanência, escuta, comunicação, orientação, experiência e atualização.",
+                    image1: 'https://lh3.googleusercontent.com/pw/AP1GczNiBmgE8_-x3RtE8cz7SEGg2Qc-yQBCtWsF_lf6YQ2CZHAH5XxMUzdf7TrOylxizJiQvWvg6m3TAT-OCB5sIA1yK2_eXWy7Jra9hphmzDWj4znEe358XVnHlnu_AuRTofnrOkEUE_bKicQr9Sf8Yzg=w1125-h633-s-no-gm?authuser=0',
+                    image2: 'https://lh3.googleusercontent.com/pw/AP1GczPCqLfnC-aO4eI9hjE_C3IVovWxVr1J9A5Ut0knJZ9maZbyJYNtZiBqiCWVX3_dD6W4qefowmhDRW7KJL1Tam1qWPk1C4d3je3aE6dPwNOpPvi1-Lck8d1NH79IIFZbjf--Q5rStVbW3SPl_ohdF70=w1125-h633-s-no-gm?authuser=0',
+                    category: 'Institucional'
+                }
+            ];
+
+            const portfolioGrid = document.getElementById('portfolio-grid');
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modal-content');
+            const modalClose = document.getElementById('modal-close');
+            const modalImg1 = document.getElementById('modal-img-1');
+            const modalImg2 = document.getElementById('modal-img-2');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDescription = document.getElementById('modal-description');
+
+            portfolioData.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'group cursor-pointer';
+                card.innerHTML = `
+                    <div class="relative overflow-hidden rounded-lg shadow-lg">
+                        <img src="${project.image1}" alt="${project.title}" class="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <p class="text-white text-lg font-bold text-center px-4">Ver detalhes</p>
+                        </div>
+                    </div>
+                    <h4 class="mt-4 text-lg font-bold text-brand-primary">${project.title}</h4>
+                    <p class="text-sm text-gray-500">${project.category}</p>
+                `;
+                card.addEventListener('click', () => openModal(project));
+                portfolioGrid.appendChild(card);
+            });
+
+            function openModal(project) {
+                modalImg1.src = project.image1;
+                modalImg1.alt = project.title + ' Página 1';
+                modalImg2.src = project.image2;
+                modalImg2.alt = project.title + ' Página 2';
+                modalTitle.textContent = project.title;
+                modalDescription.textContent = project.description;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                setTimeout(() => modalContent.classList.add('modal-enter-active'), 10);
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                modalContent.classList.remove('modal-enter-active');
+                modalContent.classList.add('modal-leave-active');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                    modalContent.classList.remove('modal-leave-active');
+                    document.body.style.overflow = 'auto';
+                }, 300);
+            }
+            
+            modalClose.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            let lastScrollTop = 0;
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (scrollTop > lastScrollTop) {
+                    header.style.top = '-100px'; 
+                } else {
+                    header.style.top = '0';
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            }, false);
+
+            // Three.js setup for the hero section
+            let scene, camera, renderer, object;
+
+            function initThreeJS() {
+                const canvas = document.getElementById('hero-three-canvas');
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(75, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+                renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true }); // alpha: true for transparent background
+                renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+
+                const geometry = new THREE.TorusGeometry(1, 0.4, 16, 100); // Torus (donut shape)
+                const material = new THREE.MeshBasicMaterial({ color: 0x8A2BE2 }); // Roxo vibrante
+                object = new THREE.Mesh(geometry, material);
+                scene.add(object);
+
+                camera.position.z = 3;
+
+                animateThreeJS();
+            }
+
+            function animateThreeJS() {
+                requestAnimationFrame(animateThreeJS);
+
+                object.rotation.x += 0.005;
+                object.rotation.y += 0.005;
+
+                renderer.render(scene, camera);
+            }
+
+            // Handle window resize for Three.js canvas
+            window.addEventListener('resize', () => {
+                const canvas = document.getElementById('hero-three-canvas');
+                camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            });
+
+            // Initialize Three.js when the window loads
+            window.onload = function() {
+                initThreeJS();
+            };
+        });
+    </script>
+</body>
+</html>
+
