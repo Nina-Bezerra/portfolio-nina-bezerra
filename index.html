@@ -121,7 +121,7 @@
             <div class="container mx-auto px-6">
                 <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
                     <div class="md:w-1/3">
-                        <!-- Imagem de perfil - Link do GitHub -->
+                        <!-- Imagem de perfil -  -->
                         <img src="https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Nina%20-%20foto%20profissional.jpeg?raw=true" alt="Foto de Profa. Nina Bezerra" class="rounded-full shadow-2xl mx-auto">
                     </div>
                     <div class="md:w-2/3">
@@ -160,6 +160,16 @@
                         <h3 class="text-xl font-bold text-brand-primary">Aprimoramento de conteúdo</h3>
                         <p class="mt-2">Ajustes na forma de apresentação e adequação de linguagem (por página).</p>
                         <div class="mt-4 text-2xl font-bold text-brand-accent">R$ 5,00</div>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-brand-primary">Criação de recursos psicopedagógicos (com modelo)</h3>
+                        <p class="mt-2">Desenvolvimento de materiais psicopedagógicos com base em um modelo fornecido.</p>
+                        <div class="mt-4 text-2xl font-bold text-brand-accent">R$ 20,00</div>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                        <h3 class="text-xl font-bold text-brand-primary">Criação de recursos psicopedagógicos (sem modelo)</h3>
+                        <p class="mt-2">Desenvolvimento de materiais psicopedagógicos, incluindo a criação do modelo.</p>
+                        <div class="mt-4 text-2xl font-bold text-brand-accent">R$ 30,00</div>
                     </div>
                     <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
                         <h3 class="text-xl font-bold text-brand-primary">Taxa de urgência</h3>
@@ -240,6 +250,11 @@
                         <p class="text-gray-700 italic mb-4">"Ficou incrível o material, seu trabalho foi impecável! A banca destacou a organização dos slides, e ainda me ajudou a estruturar melhor minhas ideias durante a apresentação."</p>
                         <p class="font-bold text-brand-primary">- Cliente satisfeito(a) 4: Seminário de pós-graduação</p>
                     </div>
+                    <!-- Novo Feedback: Palestra 'O Ciclo do Sucesso Real' -->
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                        <p class="text-gray-700 italic mb-4">"Sim 🤩🙌🏻 tenho certeza que Deus nos conectará em projetos futuros! Sua arte e seu talento me abençoaram muito. Que Deus continue abençoando vc em tudo q fizer! 🌹"</p>
+                        <p class="font-bold text-brand-primary">- Cliente satisfeita: Palestra 'O Ciclo do Sucesso Real'</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -265,9 +280,10 @@
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             <h3 id="modal-title" class="text-2xl font-bold text-brand-primary mb-4"></h3>
-            <div class="flex flex-col md:flex-row gap-4 mb-4">
-                <img id="modal-img-1" src="" alt="Imagem do Projeto Página 1" class="w-full md:w-1/2 h-auto rounded-md object-contain max-h-96">
-                <img id="modal-img-2" src="" alt="Imagem do Projeto Página 2" class="w-full md:w-1/2 h-auto rounded-md object-contain max-h-96">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                <img id="modal-img-1" src="" alt="Imagem do Projeto Página 1" class="w-full h-auto rounded-md object-contain max-h-96">
+                <img id="modal-img-2" src="" alt="Imagem do Projeto Página 2" class="w-full h-auto rounded-md object-contain max-h-96">
+                <img id="modal-img-3" src="" alt="Imagem do Projeto Página 3" class="w-full h-auto rounded-md object-contain max-h-96">
             </div>
             <p id="modal-description" class="text-gray-700"></p>
         </div>
@@ -290,69 +306,113 @@
             });
 
             const portfolioData = [
+                // Apresentações
                 {
                     id: 1,
                     title: 'Material para Acompanhamento Psicopedagógico',
                     description: "Material desenvolvido para acompanhamento psicopedagógico de paciente adulto, abordando o tema 'Dislexia em adultos: entendendo o que é e como se manifesta'. Foco na clareza e acessibilidade do conteúdo.",
                     image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Projeto%201%20-%20pag%201.png?raw=true', 
                     image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Projeto%201%20-%20pag%202.png?raw=true', 
-                    category: 'Saúde'
+                    category: 'Apresentação'
                 },
                 {
                     id: 2, 
-                    title: 'E-book: Mentoria em Comunicação Estratégica e Alta Performance',
-                    description: "E-book focado em produtividade sustentável, oferecendo estratégias de comunicação e alta performance para mentoria.",
-                    image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/E-book%20-%20Emille%20Viana%20-%20capa.png?raw=true',
-                    image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/E-book%20-%20Emille%20Viana%20-%20pags.png?raw=true',
-                    category: 'Comunicação e Produtividade'
-                },
-                {
-                    id: 3, 
-                    title: 'Informativo para Comunicação Essencial',
-                    description: "Criação de um informativo conciso e visualmente atraente para comunicação interna ou externa, garantindo a transmissão eficaz de informações importantes.",
-                    image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Modelo%20de%20informativo%20-%20at.png?raw=true',
-                    image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Modelo%20de%20informativo%20-%20at.png?raw=true', /* Usando a mesma imagem para a segunda página, se for um documento de página única */
-                    category: 'Comunicação'
-                },
-                {
-                    id: 4, 
-                    title: 'Mapa conceitual ou diagrama visual',
-                    description: "Desenvolvimento de um mapa conceitual ou diagrama visual para organizar ideias complexas, facilitar a compreensão e otimizar a aprendizagem de temas específicos.",
-                    image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Modelo%20de%20mapa.png?raw=true',
-                    image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Modelo%20de%20mapa.png?raw=true', /* Usando a mesma imagem para a segunda página, se for um documento de página única */
-                    category: 'Organização do Conhecimento'
-                },
-                {
-                    id: 5, 
                     title: 'Treinamento para Docentes da Educação Básica',
                     description: "Treinamento sobre 'Processos avaliativos no ensino fundamental: teorias e práticas', com o objetivo de aprimorar as práticas pedagógicas dos docentes.",
                     image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Projeto%202%20-%20pag%201%20atualizado.png?raw=true',
                     image2: 'https://github.com/Nina-Bezerra/ninabezerradi.github.io-/blob/main/Projeto%202%20-%20pag%202.png?raw=true',
-                    category: 'Educação Básica'
+                    category: 'Apresentação'
                 },
                 {
-                    id: 6, 
-                    title: 'Seminário de Pós-Graduação',
-                    description: 'Material elaborado para seminário de pós-graduação em ecologia, com design focado em facilitar a compreensão de conceitos científicos complexos.',
-                    image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Projeto%204%20-%20pag%201.png?raw=true',
-                    image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Projeto%204%20-%20pag%202.png?raw=true',
-                    category: 'Pós-Graduação'
-                },
-                {
-                    id: 7, 
-                    title: 'Dinâmica com Discentes do Ensino Superior',
-                    description: "Material dinâmico e interativo utilizando gamificação com o tema 'Bem-vindos/as ao jogo mais importante de suas vidas', visando engajamento e aprendizado ativo.",
-                    image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Projeto%205%20-%20pag%201.png?raw=true',
-                    image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Projeto%205%20-%20pag%202.png?raw=true',
-                    category: 'Ensino Superior'
-                },
-                {
-                    id: 8, 
+                    id: 3, 
                     title: 'Material Institucional',
                     description: "Apresentação de setor com base em 'Estratégias inovadoras', destacando ações como permanência, escuta, comunicação, orientação, experiência e atualização.",
                     image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Projeto%206%20-%20pag%201.png?raw=true',
                     image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Projeto%206%20-%20pag%202.png?raw=true',
-                    category: 'Institucional'
+                    category: 'Apresentação'
+                },
+                {
+                    id: 4,
+                    title: 'Palestra: O Ciclo do Sucesso Real',
+                    description: "Design impactante para apresentação sobre o 'Ciclo do Sucesso Real', utilizando elementos visuais que reforçam a mensagem de desenvolvimento e realização.",
+                    image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Projeto%207%20capa%20Elaine%20Silva%20-%20O%20ciclo%20do%20sucesso%20real.jpg?raw=true',
+                    image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/ATUALIZADO%20Projeto%207%20-Elaine%20Silva%20-%20O%20ciclo%20do%20sucesso%20real%20-%20geral.png?raw=true', 
+                    category: 'Apresentação'
+                },
+                {
+                    id: 5,
+                    title: 'Apresentação de pós-graduação (pesquisa de mestrado)',
+                    description: "Apresentação elaborada para defesa de pesquisa de mestrado, com foco em clareza na exposição de dados complexos e fluidez na argumentação.",
+                    image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Projeto%208%20Qualifica%C3%A7%C3%A3o%20-%20Kevin%20-%20geral_page-0001.jpg?raw=true',
+                    image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Projeto%208%20Qualifica%C3%A7%C3%A3o%20-%20Kevin%20-%20geral_page-0002.jpg?raw=true',
+                    category: 'Apresentação'
+                },
+                // E-books
+                {
+                    id: 6, 
+                    title: 'E-book: Mentoria em Comunicação Estratégica e Alta Performance',
+                    description: "E-book focado em produtividade sustentável, oferecendo estratégias de comunicação e alta performance para mentoria.",
+                    image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/E-book%20-%20Emille%20Viana%20-%20capa.png?raw=true',
+                    image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/ATUALIZADO%20%20Elaine%20Silva%20-%20E-book%20-%20geral%201.png?raw=true', 
+                    category: 'E-book'
+                },
+                {
+                    id: 7,
+                    title: 'E-book: Estratégias de Mentoria e Desenvolvimento Pessoal',
+                    description: "Criação de e-book completo com design focado em engajamento para mentoria e desenvolvimento pessoal, com foco em conteúdo prático e visualmente atraente.",
+                    image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Elaine%20Silva%20-%20E-book%20capa.png?raw=true', 
+                    image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/ATUALIZADO%20%20Elaine%20Silva%20-%20E-book%20-%20geral%201.png?raw=true', 
+                    image3: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/ATUALIZADO%20Elaine%20Silva%20-%20E-book%20-%20geral%202.png?raw=true', 
+                    category: 'E-book'
+                },
+                // Recursos
+                {
+                    id: 8, 
+                    title: 'Informativo para Comunicação Essencial',
+                    description: "Criação de um informativo conciso e visualmente atraente para comunicação interna ou externa, garantindo a transmissão eficaz de informações importantes.",
+                    image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Modelo%20de%20informativo%20-%20at.png?raw=true',
+                    image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Modelo%20de%20informativo%20-%20at.png?raw=true', /* Usando a mesma imagem para a segunda página, se for um documento de página única */
+                    category: 'Recurso'
+                },
+                {
+                    id: 9, 
+                    title: 'Dinâmica com Discentes do Ensino Superior',
+                    description: "Material dinâmico e interativo utilizando gamificação com o tema 'Bem-vindos/as ao jogo mais importante de suas vidas', visando engajamento e aprendizado ativo.",
+                    image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Projeto%205%20-%20pag%201.png?raw=true',
+                    image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Projeto%205%20-%20pag%202.png?raw=true',
+                    category: 'Recurso'
+                },
+                {
+                    id: 10,
+                    title: 'Capa para Relatório Psicopedagógico',
+                    description: "Design profissional e acolhedor para a capa de relatórios psicopedagógicos, transmitindo seriedade e cuidado.",
+                    image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Capa%20-%20Relat%C3%B3rio%20psicopedag%C3%B3gico.jpg?raw=true',
+                    image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Capa%20-%20Relat%C3%B3rio%20psicopedag%C3%B3gico.jpg?raw=true', // Página única
+                    category: 'Recurso'
+                },
+                {
+                    id: 11,
+                    title: 'Recurso: Mandala de Autoavaliação Pessoal',
+                    description: "Recurso visual interativo para autoavaliação pessoal, promovendo reflexão e autoconhecimento de forma criativa.",
+                    image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Recurso%20Mandala%20de%20Autoavalia%C3%A7%C3%A3o%20Pessoal%20(1).png?raw=true',
+                    image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Recurso%20Mandala%20de%20Autoavalia%C3%A7%C3%A3o%20Pessoal%20(1).png?raw=true', // Página única
+                    category: 'Recurso'
+                },
+                {
+                    id: 12,
+                    title: 'Recurso: Planejamento Eficaz de Estudos',
+                    description: "Desenvolvimento de um recurso prático para planejamento de estudos, auxiliando na organização e otimização do tempo para alcançar metas acadêmicas.",
+                    image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Recurso%20Planejamento%20de%20estudos%20%20(1)%20capa.png?raw=true',
+                    image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Recurso%20Planejamento%20de%20estudos%20%20(1)%20geral.jpg?raw=true',
+                    category: 'Recurso'
+                },
+                {
+                    id: 13,
+                    title: 'Recurso Psicopedagógico: Expressando Emoções',
+                    description: "Recurso lúdico e educativo para auxiliar na compreensão e expressão da emoção da raiva em crianças ou adultos, promovendo o desenvolvimento socioemocional.",
+                    image1: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Recurso%20psicopedag%C3%B3gico%20-%20estou%20com%20raiva%20(1).jpg?raw=true',
+                    image2: 'https://github.com/Nina-Bezerra/portfolio-nina-bezerra/blob/main/Recurso%20psicopedag%C3%B3gico%20-%20estou%20com%20raiva%20(1).jpg?raw=true', // Página única
+                    category: 'Recurso'
                 }
             ];
 
@@ -362,6 +422,7 @@
             const modalClose = document.getElementById('modal-close');
             const modalImg1 = document.getElementById('modal-img-1');
             const modalImg2 = document.getElementById('modal-img-2');
+            const modalImg3 = document.getElementById('modal-img-3'); // Novo elemento para a terceira imagem
             const modalTitle = document.getElementById('modal-title');
             const modalDescription = document.getElementById('modal-description');
 
@@ -385,13 +446,22 @@
             function openModal(project) {
                 modalImg1.src = project.image1;
                 modalImg1.alt = project.title + ' Página 1';
-                // Se a segunda imagem for a mesma, esconde a segunda imagem ou usa a mesma fonte
-                if (project.image1 === project.image2) {
-                    modalImg2.style.display = 'none'; // Esconde a segunda imagem
-                } else {
-                    modalImg2.style.display = 'block'; // Garante que a segunda imagem seja exibida
+                modalImg1.style.display = 'block'; // Garante que a primeira imagem seja exibida
+
+                if (project.image2) {
                     modalImg2.src = project.image2;
                     modalImg2.alt = project.title + ' Página 2';
+                    modalImg2.style.display = 'block'; // Garante que a segunda imagem seja exibida
+                } else {
+                    modalImg2.style.display = 'none';
+                }
+                
+                if (project.image3) { // Verifica e exibe a terceira imagem
+                    modalImg3.src = project.image3;
+                    modalImg3.alt = project.title + ' Página 3';
+                    modalImg3.style.display = 'block';
+                } else {
+                    modalImg3.style.display = 'none';
                 }
                 
                 modalTitle.textContent = project.title;
@@ -410,7 +480,10 @@
                     modal.classList.remove('flex');
                     modalContent.classList.remove('modal-leave-active');
                     document.body.style.overflow = 'auto';
-                    modalImg2.style.display = 'block'; // Reset para garantir que a imagem apareça para os próximos projetos
+                    // Resetar displays para garantir consistência em próximos modais
+                    modalImg1.style.display = 'block'; 
+                    modalImg2.style.display = 'block'; 
+                    modalImg3.style.display = 'block'; 
                 }, 300);
             }
             
